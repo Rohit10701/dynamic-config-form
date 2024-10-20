@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should throw an error when config does not contain fields: Fields are required in the config! 1`] = `"Fields are required in the config!"`;

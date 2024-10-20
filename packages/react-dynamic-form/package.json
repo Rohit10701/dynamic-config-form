@@ -1,0 +1,43 @@
+{
+	"name": "react-dynamic-form",
+	"version": "1.0.0",
+	"license": "MIT",
+	"description": "The Dynamic Form System is a React-based solution designed to create and manage complex, configurable forms.",
+	"main": "src/index.tsx",
+	"types": "src/index.d.ts",
+	"files": [
+	  "src",
+	  "scripts"
+	],
+	"scripts": {
+	  "build": "echo 'No build step needed'",
+	  "postinstall": "node scripts/postinstall.js"
+	},
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/Rohit10701/react-dynamic-form.git"
+	},
+	"keywords": [
+	  "react",
+	  "dynamic-form",
+	  "config-form",
+	  "json",
+	  "react-component",
+	  "form"
+	],
+	"peerDependencies": {
+	  "react": "^18.0.0",
+	  "react-dom": "^18.0.0"
+	},
+	"devDependencies": {
+	  "@types/node": "^22.7.7",
+	  "@types/react": "^18.3.11",
+	  "typescript": "^5.6.3"
+	},
+	"dependencies": {
+	  "@mui/material": "^6.1.4",
+	  "react-hook-form": "^7.53.0",
+	  "zod": "^3.23.8"
+	}
+  }
+  

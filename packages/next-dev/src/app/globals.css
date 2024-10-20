@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Forms */
+
+:root {
+  --gap: 16px;
+  --column-width: 200px;
+}
