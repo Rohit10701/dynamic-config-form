@@ -3,38 +3,34 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"description": "The Dynamic Form System is a React-based solution designed to create and manage complex, configurable forms.",
-	"main": "src/index.tsx",
-	"types": "src/index.d.ts",
+	"types": "src/index.ts",
 	"files": [
-	  "src",
-	  "scripts"
+		"src",
+		"scripts",
+		"patches"
 	],
 	"scripts": {
-	  "build": "echo 'No build step needed'",
-	  "postinstall": "node scripts/postinstall.js"
+		"build": "echo 'No build step needed'",
+		"postinstall": "node ./scripts/postInstall.js && patch-package"
 	},
 	"repository": {
-	  "type": "git",
-	  "url": "https://github.com/Rohit10701/react-dynamic-form.git"
+		"type": "git",
+		"url": "https://github.com/Rohit10701/react-dynamic-form.git"
 	},
 	"keywords": [
-	  "react",
-	  "dynamic-form",
-	  "config-form",
-	  "json",
-	  "react-component",
-	  "form"
+		"react",
+		"dynamic-form",
+		"config-form",
+		"json",
+		"react-component",
+		"form"
 	],
-	"peerDependencies": {
-	  "react": "^18.0.0",
-	  "react-dom": "^18.0.0"
-	},
 	"devDependencies": {
-	  "@types/node": "^22.7.7",
-	  "@types/react": "^18.3.11",
-	  "typescript": "^5.6.3"
+		"@types/node": "^22.7.7",
+		"@types/react": "^18.3.11",
+		"typescript": "^5.6.3"
 	},
-	"dependencies": {
+	"peerDependencies": {
 		"@hookform/error-message": "^2.0.1",
 		"@hookform/resolvers": "^3.9.0",
 		"clsx": "^2.1.1",
@@ -49,5 +45,4 @@
 		"tailwind-merge": "^2.5.2",
 		"zod": "^3.23.8"
 	}
-  }
-  
+}

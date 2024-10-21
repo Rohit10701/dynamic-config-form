@@ -15,12 +15,20 @@ function copyDir(src, dest) {
     if (fs.lstatSync(srcFile).isDirectory()) {
       copyDir(srcFile, destFile);
     } else {
-      fs.copyFileSync(srcFile, destFile);
-      console.log(chalk.green(`Copied ${file} to ${dest}`));
+      try {
+        fs.copyFileSync(srcFile, destFile);
+        console.log(chalk.green(`Copied ${file} to ${dest}`));
+      } catch (error) {
+        console.error(chalk.red(`Error copying ${file}: ${error.message}`));
+      }
     }
   });
 }
 
 console.log(chalk.blue(`Installing form components to ${targetDir}...`));
-copyDir(srcDir, targetDir);
-console.log(chalk.green('Form components installed successfully!'));
+try {
+  copyDir(srcDir, targetDir);
+  console.log(chalk.green('Form components installed successfully!'));
+} catch (error) {
+  console.error(chalk.red(`Error during installation: ${error.message}`));
+}
