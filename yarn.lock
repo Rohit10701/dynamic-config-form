@@ -9014,9 +9014,9 @@ react-docgen@^7.0.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
 
-"react-dynamic-form@file:/Users/rohit/Documents/libs/form/config-form/packages/react-dynamic-form":
+"dynamic-config-form@file:/Users/rohit/Documents/libs/form/config-form/packages/dynamic-config-form":
   version "1.0.0"
-  resolved "file:packages/react-dynamic-form"
+  resolved "file:packages/dynamic-config-form"
   dependencies:
     "@emotion/react" "^11.13.3"
     "@emotion/styled" "^11.13.0"

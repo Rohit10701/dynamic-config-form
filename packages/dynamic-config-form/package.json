@@ -1,5 +1,5 @@
 {
-	"name": "react-dynamic-form",
+	"name": "dynamic-config-form",
 	"version": "1.0.0",
 	"license": "MIT",
 	"description": "The Dynamic Form System is a React-based solution designed to create and manage complex, configurable forms.",
@@ -15,7 +15,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Rohit10701/react-dynamic-form.git"
+		"url": "https://github.com/Rohit10701/dynamic-config-form.git"
 	},
 	"keywords": [
 		"react",
