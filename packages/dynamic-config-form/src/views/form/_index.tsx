@@ -1,3 +1,4 @@
+"use client"
 import React, { ReactNode, useEffect, useInsertionEffect, useLayoutEffect } from 'react'
 import {
 	Controller,

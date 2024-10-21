@@ -1,3 +1,4 @@
+"use client"
 import { useEffect } from 'react'
 import { DefaultValues, useForm } from 'react-hook-form'
 import { useFormContext } from '../context/form-context'

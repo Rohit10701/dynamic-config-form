@@ -1,34 +1,31 @@
 const fs = require('fs');
 const path = require('path');
-const chalk = require('chalk');
 
 const srcDir = path.join(__dirname, '../src');
-const targetDir = path.join(process.cwd(), 'src/components/form');
+const targetDir = path.join(process.cwd(), 'src/components/form-ui');
 
-function copyDir(src, dest) {
-  if (!fs.existsSync(dest)) {
-    fs.mkdirSync(dest, { recursive: true });
-  }
-  fs.readdirSync(src).forEach(file => {
+function copyFolder(src, dst) {
+  fs.mkdirSync(dst, { recursive: true });
+
+  const files = fs.readdirSync(src);
+
+  files.forEach(file => {
     const srcFile = path.join(src, file);
-    const destFile = path.join(dest, file);
-    if (fs.lstatSync(srcFile).isDirectory()) {
-      copyDir(srcFile, destFile);
+    const dstFile = path.join(dst, file);
+
+    const stat = fs.statSync(srcFile);
+    if (stat.isDirectory()) {
+      copyFolder(srcFile, dstFile);
     } else {
-      try {
-        fs.copyFileSync(srcFile, destFile);
-        console.log(chalk.green(`Copied ${file} to ${dest}`));
-      } catch (error) {
-        console.error(chalk.red(`Error copying ${file}: ${error.message}`));
-      }
+      fs.copyFileSync(srcFile, dstFile);
     }
   });
 }
 
-console.log(chalk.blue(`Installing form components to ${targetDir}...`));
+console.log(`Copying folder from ${srcDir} to ${targetDir}...`);
 try {
-  copyDir(srcDir, targetDir);
-  console.log(chalk.green('Form components installed successfully!'));
+  copyFolder(srcDir, targetDir);
+  console.log('Folder copied successfully!');
 } catch (error) {
-  console.error(chalk.red(`Error during installation: ${error.message}`));
+  console.error(`Error during copy: ${error.message}`);
 }

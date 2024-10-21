@@ -1,3 +1,4 @@
+"use client"
 import { Path, useWatch } from 'react-hook-form';
 import { useFormContext } from '../context/form-context';
 
