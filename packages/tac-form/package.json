@@ -1,8 +1,8 @@
 {
 	"name": "tac-form",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "MIT",
-	"description": "The Dynamic Form System is a React-based solution designed to create and manage complex, configurable forms.",
+	"description": "The JSON Schema-based library for creating forms.",
 	"types": "src",
 	"files": [
 		"src",
@@ -14,7 +14,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Rohit10701/dynamic-config-form.git"
+		"url": "https://github.com/Rohit10701/tac-form.git"
 	},
 	"keywords": [
 		"react",
