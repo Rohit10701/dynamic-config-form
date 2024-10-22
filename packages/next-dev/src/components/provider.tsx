@@ -1,6 +1,6 @@
 "use client"
 import React, { ReactNode } from 'react'
-import { FormProvider } from '../components/src/index'
+import { FormProvider } from '../../../tac-form/src/index'
 
 const Provider = ({children }: {children : ReactNode}) => {
   return (
