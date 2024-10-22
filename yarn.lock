@@ -10003,12 +10003,16 @@ tabbable@^6.0.0:
   integrity sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==
 
 "tac-form@file:/Users/rohit/Documents/libs/form/config-form/packages/tac-form":
-  version "1.0.5"
+  version "1.0.8"
   resolved "file:packages/tac-form"
   dependencies:
     "@hookform/error-message" "^2.0.1"
     "@hookform/resolvers" "^3.9.0"
+    chalk "^4.1.2"
     clsx "^2.1.1"
+    commander "^8.3.0"
+    fs-extra "^10.0.0"
+    inquirer "^8.2.0"
     patch-package "^8.0.0"
     react "^18.0.0"
     react-color "^2.19.3"
