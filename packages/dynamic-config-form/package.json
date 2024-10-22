@@ -1,6 +1,6 @@
 {
-	"name": "dynamic-config-form",
-	"version": "1.1.2",
+	"name": "dynamic-forms",
+	"version": "1.0.0",
 	"license": "MIT",
 	"description": "The Dynamic Form System is a React-based solution designed to create and manage complex, configurable forms.",
 	"types": "src",
