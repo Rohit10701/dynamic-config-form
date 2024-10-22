@@ -1,6 +1,6 @@
 {
 	"name": "tac-form",
-	"version": "1.0.2",
+	"version": "1.0.5",
 	"license": "MIT",
 	"description": "The JSON Schema-based library for creating forms.",
 	"types": "src",
@@ -10,7 +10,8 @@
 		"patches"
 	],
 	"scripts": {
-		"build": "echo 'No build step needed'"
+		"build": "echo 'No build step needed'",
+		"postinstall": "node scripts/postInstall.js"
 	},
 	"repository": {
 		"type": "git",
@@ -46,6 +47,13 @@
 		"react-phone-input-2": "^2.15.1",
 		"react-select": "^5.8.0",
 		"tailwind-merge": "^2.5.2",
-		"zod": "^3.23.8"
+		"zod": "^3.23.8",
+		"commander": "^8.3.0",
+		"inquirer": "^8.2.0",
+		"fs-extra": "^10.0.0",
+		"chalk": "^4.1.2"
+	},
+	"bin": {
+		"tac-form": "./cli.js"
 	}
 }

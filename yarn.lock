@@ -6028,7 +6028,7 @@ init-package-json@6.0.3:
     validate-npm-package-license "^3.0.4"
     validate-npm-package-name "^5.0.0"
 
-inquirer@^8.2.4:
+inquirer@^8.2.0, inquirer@^8.2.4:
   version "8.2.6"
   resolved "https://registry.npmjs.org/inquirer/-/inquirer-8.2.6.tgz"
   integrity sha512-M1WuAmb7pn9zdFRtQYk26ZBoY043Sse0wVDdk4Bppr+JOXyQYybdtvK+l9wUibhtjdjvtoiNy8tk+EgsYIUqKg==
@@ -10003,7 +10003,7 @@ tabbable@^6.0.0:
   integrity sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==
 
 "tac-form@file:/Users/rohit/Documents/libs/form/config-form/packages/tac-form":
-  version "1.0.2"
+  version "1.0.5"
   resolved "file:packages/tac-form"
   dependencies:
     "@hookform/error-message" "^2.0.1"
