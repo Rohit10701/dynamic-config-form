@@ -1,3 +1,4 @@
+"use client"
 import { useEffect } from 'react'
 import { DefaultValues, useForm } from 'react-hook-form'
 import { useFormContext } from '../context/form-context'
@@ -11,7 +12,7 @@ const useDynamicForm = <T extends Record<string, unknown>>(
 	schema?: ZodType<any, any, any>,
 	defaultValues?: DefaultValues<T> | undefined
 ) => {
-	const { addForm } = useFormContext<T>()
+	const {forms,  addForm } = useFormContext<T>()
 	const methods = useForm<T>({
 		shouldUnregister: true, 
 		resolver: schema ? zodResolver(schema) : undefined,
@@ -20,7 +21,9 @@ const useDynamicForm = <T extends Record<string, unknown>>(
 	  
 
 	useEffect(() => {
-		addForm(id, methods)
+		if(!forms?.[id]){
+			addForm(id, methods)
+		}
 	}, [id, methods])
 
 	return { ...methods, config }

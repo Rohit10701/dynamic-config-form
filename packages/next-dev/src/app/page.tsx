@@ -1,21 +1,16 @@
 'use client'
-import { useFormContext } from '@/context/form-context'
-import { useEffect, useState } from 'react'
-import { FormConfig } from '@/types/form'
-import { FieldValue, useWatch } from 'react-hook-form'
-import useFormWatch from '@/hooks/use-form-watch'
-import { z } from 'zod'
-import testFormConfig from '@/utils/constant'
-import DynamicForm from '@/components/form/_index'
-
+import useFormWatch from '@/components/src/hooks/use-form-watch'
+import { DynamicForm, FormConfig, useFormContext } from '../components/src/index'
+import { useWatch } from 'react-hook-form'
+import { useEffect } from 'react'
 type FormType = {
 	email1: string
 	email: string
 	username: string
 }
-const formConfig2 : FormConfig<FormType> = {
+const formConfig2: FormConfig<FormType> = {
 	form: {
-		id: '1',
+		id: '2',
 		submitText: 'submit',
 		onSubmit: (data) => {
 			console.log(data)
@@ -24,32 +19,36 @@ const formConfig2 : FormConfig<FormType> = {
 	fields: [
 		{
 			name: 'email',
-			type: 'email',
+			type: 'email'
 		},
 		{
 			name: 'username',
-			type : "text"
+			type: 'text'
 		}
 	]
 }
 
 const Home = () => {
-	const { forms, getFormValue } = useFormContext<FormType>()
+	const { forms, getFormValue, addForm } = useFormContext<FormType>()
+
+	function FirstNameWatched({ control }) {
+		const firstName = useWatch({
+			control,
+			name: 'firstName',
+		})
+		return firstName
+	}
+	
+	console.log({ value: FirstNameWatched({ control: forms?.['2']?.control }) })
 
 
-	// const value  = useFormWatch("2")
 	const handleClick = (id: string) => {
-		const value = getFormValue(id, '')
+		const value = getFormValue(id, 'email')
 		console.log({ value })
 	}
-	// console.log({value})
 	return (
 		<>
-			{/* <button onClick={() => handleClick('1')}>Click</button>
-			<DynamicForm
-				id='1'
-				config={formConfig1}
-			/> */}
+			{/* <button onClick={() => handleClick('2')}>Click</button> */}
 
 			<DynamicForm
 				id='2'
@@ -60,20 +59,3 @@ const Home = () => {
 }
 
 export default Home
-
-const formConfig3: FormConfig<any> = {
-	form: {
-		id: '1',
-		submitText: 'submit',
-		onSubmit: (data) => {
-			console.log('form2', data)
-		}
-	},
-	fields: [...testFormConfig]
-}
-
-const form2Schema = z.object({
-	email: z.string().email(),
-	email2: z.string().email().optional().or(z.literal('')),
-	username: z.string().min(4).optional()
-})

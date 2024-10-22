@@ -1,9 +1,9 @@
-import { FieldInput } from '@/types/form';
+import * as React from 'react';
 import { ErrorMessage } from "@hookform/error-message";
-import { cn } from '@/utils/helpers';
 import ErrorField from './error-field';
 import { InputHTMLAttributes } from 'react';
 import { FieldErrors } from 'react-hook-form';
+import { cn } from "../../utils/helpers";
 
 
 interface ReadOnlyInputProps <T extends Record<string, unknown>>  extends InputHTMLAttributes<HTMLInputElement>{

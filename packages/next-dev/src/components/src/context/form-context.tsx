@@ -1,8 +1,6 @@
-'use client'
-import useFormWatch from '@/hooks/use-form-watch'
+"use client"
 import React, { ReactNode, createContext, useContext, useState, useEffect } from 'react'
 import { FieldValues, UseFormReturn, useWatch } from 'react-hook-form'
-import { unknown } from 'zod'
 
 export interface FormContextProps<T extends FieldValues> {
 	forms: Record<string, UseFormReturn<T>>
@@ -10,7 +8,7 @@ export interface FormContextProps<T extends FieldValues> {
 	getFormValue: (id: string, name: keyof T) => any
 }
 
-export const FormContext = createContext<FormContextProps<any>|unknown>(unknown)
+export const FormContext = createContext<FormContextProps<any>|unknown>(undefined)
 
 export const useFormContext = <T extends FieldValues>() => {
 	const context = useContext(FormContext as React.Context<FormContextProps<T> | undefined>)
@@ -33,7 +31,9 @@ export const FormProvider = <T extends Record<string, unknown>>({ children }: { 
 		return forms?.[id]?.getValues(name as string)
 	}
 
-
+	useEffect(() => {
+		console.log('Current forms:', forms);
+	}, [forms]);
 	return (
 		<FormContext.Provider value={{ forms, addForm, getFormValue }}>
 			{children}

@@ -1,4 +1,3 @@
-import TimeInput from 'react-time-picker/dist/TimeInput'
 import CheckboxInput from './checkbox-input'
 import DateInput from './date-input'
 import GenericInput from './generic-input'
@@ -24,8 +23,6 @@ export function getFieldComponent(type: string): React.FC<any> {
 			return PhoneNumberInput
 		case 'date':
 			return DateInput
-		case 'time':
-			return TimeInput
 		case 'color':
 			return ColorInput
 		case 'file':
@@ -38,7 +35,6 @@ export function getFieldComponent(type: string): React.FC<any> {
 }
 
 export {
-	TimeInput,
 	CheckboxInput,
 	DateInput,
 	GenericInput,

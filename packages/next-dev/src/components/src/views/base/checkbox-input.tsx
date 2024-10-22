@@ -1,9 +1,9 @@
 import React, { InputHTMLAttributes } from 'react';
 import { FieldErrors, FieldValues, FieldName } from 'react-hook-form';
 import { ErrorMessage, FieldValuesFromFieldErrors } from '@hookform/error-message';
-import { Option } from '@/types/form';
-import { cn } from '@/utils/helpers';
 import ErrorField from './error-field';
+import { Option } from '../../types/form';
+import { cn } from '../../utils/helpers';
 
 interface CheckboxInputProps<T extends Record<string, unknown>> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
   label?: string;

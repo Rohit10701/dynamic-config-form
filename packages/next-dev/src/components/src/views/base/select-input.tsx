@@ -1,8 +1,8 @@
 import { ErrorMessage, FieldValuesFromFieldErrors } from '@hookform/error-message';
 import React, { SelectHTMLAttributes } from 'react';
 import { FieldErrors, FieldName } from 'react-hook-form';
-import { cn } from '@/utils/helpers'; 
 import ErrorField from './error-field';
+import { cn } from '../../utils/helpers';
 
 interface SelectInputProps<T extends Record<string, unknown>> extends SelectHTMLAttributes<HTMLSelectElement> {
   placeholder: string;

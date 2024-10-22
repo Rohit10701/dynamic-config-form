@@ -14,6 +14,7 @@ export { default as ReadOnlyInput } from './views/base/readonly-input'
 
 /* hooks */
 export { default as useDynamicForm } from './hooks/use-dynamic-form'
+export { default as useWatchForm } from './hooks/use-form-watch'
 
 /* context */
 export type {FormContextProps} from "./context/form-context"

@@ -1,18 +1,21 @@
+"use client"
 import React, { ReactNode, useEffect, useInsertionEffect, useLayoutEffect } from 'react'
 import {
 	Controller,
 	DefaultValues,
 	FieldErrors,
 	FieldName,
+	Path,
 	SubmitHandler,
-	useForm
+	useForm,
+	WatchObserver
 } from 'react-hook-form'
-import { FormConfig, FieldInput } from '@/types/form'
-import useDynamicForm from '@/hooks/use-dynamic-form'
 import { FieldValuesFromFieldErrors } from '@hookform/error-message'
 import { getFieldComponent } from '../base/_index'
-import { cn } from '@/utils/helpers'
 import { ZodType } from 'zod'
+import { FieldInput, FormConfig } from '../../types/form'
+import useDynamicForm from '../../hooks/use-dynamic-form'
+import { cn } from '../../utils/helpers'
 
 export interface DynamicFormProps<T extends Record<string, unknown>> {
 	id: string
@@ -39,7 +42,7 @@ const DynamicForm = <T extends Record<string, unknown>>(props: DynamicFormProps<
 	useEffect(() => {
 		const defaultValues = config.fields?.reduce((acc, field) => {
 			if ('value' in field) {
-				acc[field.name as keyof T] = field.value
+				acc[field.name as keyof T] = field.value  as T[keyof T]
 			}
 			return acc
 		}, {} as T)
@@ -65,7 +68,7 @@ const DynamicForm = <T extends Record<string, unknown>>(props: DynamicFormProps<
 				)}>
 				{config?.fields?.map((fieldData: FieldInput<T>) => {
 					const dependencyValues = fieldData.dependency?.on.reduce((acc, fieldName) => {
-						acc[fieldName] = watch(fieldName)
+						acc[fieldName] = watch(fieldName as unknown as WatchObserver<T>) as T[keyof T]
 						return acc
 					}, {} as Partial<T>) as Partial<T>
 					const FieldComponent = getFieldComponent(fieldData.type)
@@ -75,7 +78,7 @@ const DynamicForm = <T extends Record<string, unknown>>(props: DynamicFormProps<
 							(fieldData.dependency && fieldData.dependency.condition(dependencyValues))) && (
 							<Controller
 								key={fieldData.name as string}
-								name={fieldData.name}
+								name={fieldData.name as Path<T>}
 								control={control}
 								render={({ field: controlledField }) => {
 									const CustomComponent = fieldData?.component

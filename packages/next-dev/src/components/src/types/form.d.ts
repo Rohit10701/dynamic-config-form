@@ -24,13 +24,10 @@ export type Option = {
 	value: string
 }
 
-export interface FieldInput<T extends FieldValues> extends Omit<InputHTMLAttributes<HTMLInputElement>, "name">  {
-	name: keyof T
+export interface FieldInput<T extends FieldValues> extends Omit<InputHTMLAttributes<HTMLInputElement>, "name" | "value">  {
+	name: keyof T 
 	errors?: FieldErrors<T>
-	value?:
-		| Option
-		| string[]
-		| ((string | number | readonly string[]) & PathValue<T, Path<T>>)
+	value?: string | number | readonly string[] | undefined | Option[]
 		dependency?: {
 			on: (keyof T)[]
 			condition: (value: Partial<T>) => boolean

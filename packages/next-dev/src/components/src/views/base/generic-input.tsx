@@ -1,9 +1,8 @@
-import { FieldInput } from '@/types/form'
-import { cn } from '@/utils/helpers'
-import { ErrorMessage } from '@hookform/error-message'
+import * as React from 'react';
 import ErrorField from './error-field'
 import { FieldError, FieldErrors } from 'react-hook-form'
 import { InputHTMLAttributes } from 'react'
+import { cn } from '../../utils/helpers'
 
 interface GenericInputProps<T extends Record<string, unknown>>
 	extends InputHTMLAttributes<HTMLInputElement> {

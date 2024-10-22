@@ -1,8 +1,8 @@
 import { ErrorMessage, FieldValuesFromFieldErrors } from '@hookform/error-message';
 import React, { TextareaHTMLAttributes } from 'react';
 import { FieldErrors, FieldName } from 'react-hook-form';
-import { cn } from '@/utils/helpers';
 import ErrorField from './error-field';
+import { cn } from '../../utils/helpers';
 
 interface TextareaInputProps<T extends Record<string, unknown>> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;

@@ -1,9 +1,8 @@
-import DynamicForm from '@/components/form/_index'
-import { FormProvider } from '@/context/form-context'
-import { FormConfig } from '@/types/form'
+
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe } from 'node:test'
 import { z } from 'zod'
+import { DynamicForm, FormConfig, FormProvider } from '../../../../dynamic-config-form/src'
 
 // Mock form configurations
 type FormValueType = {
