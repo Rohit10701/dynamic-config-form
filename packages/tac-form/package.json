@@ -3,7 +3,6 @@
 	"version": "1.0.8",
 	"license": "MIT",
 	"description": "The JSON Schema-based library for creating forms.",
-	"types": "src",
 	"files": [
 		"src",
 		"scripts",
