@@ -1,13 +1,26 @@
 # tac-form
 
+tac-form is a powerful, JSON Schema-based library for creating dynamic forms in React applications. It offers a flexible and intuitive way to generate, manage, and validate forms with minimal boilerplate.
 
+## Table of Contents
 
+1. [Key Features](#key-features)
+2. [Installation](#installation)
+3. [Basic Usage](#basic-usage)
+4. [Form Configuration](#form-configuration)
+5. [Field Types](#field-types)
+6. [Conditional Rendering](#conditional-rendering)
+7. [Validation](#validation)
+8. [External Component Integration](#external-component-integration)
+9. [Context and Form Management](#context-and-form-management)
+10. [Theming and Styling](#theming-and-styling)
+11. [Advanced Examples](#advanced-examples)
+12. [API Reference](#api-reference)
+13. [Contributing](#contributing)
+14. [License](#license)
 
+## Key Features
 
-
-The JSON Schema-based library for creating forms.
-
-### Key features
 - Dynamic form generation based on JSON configuration
 - Support for multiple field types
 - Conditional field rendering
@@ -16,87 +29,64 @@ The JSON Schema-based library for creating forms.
 - Dark mode support
 - Multi-form management via React Context
 
-## Install 
+## Installation
 
-1. install the library
-```
+1. Install the library:
+```bash
 npm install tac-form
 ```
-2. Copy the component to working directory
+
+2. Copy the component to your working directory:
+```bash
+npx tac-form add
 ```
-node ./node_modules/tac-form/scripts/postInstall.js 
-```
 
+3. Set up Tailwind CSS (if not already configured in your project)
 
-## 1. Usage
+## Basic Usage
 
-This example demonstrates how to configure a dynamic form using TypeScript.
+Here's a simple example of how to use tac-form:
 
-```typescript
-const formConfig = {
-  form: {
-    id: '1',
-    submitText: 'Submit',
-    onSubmit: (data) => {
-      console.log(data);
+```tsx
+import React from 'react';
+import { DynamicForm, FormProvider } from 'tac-form';
+
+const App = () => {
+  const formConfig = {
+    form: {
+      id: 'simpleForm',
+      submitText: 'Submit',
+      onSubmit: (data) => {
+        console.log('Form submitted:', data);
+      },
     },
-  },
-  fields: [
-    {
-      name: 'email',
-      type: 'email',
-    },
-    {
-      name: 'username',
-      type: 'text',
-    },
-  ],
+    fields: [
+      {
+        name: 'email',
+        label: 'Email',
+        type: 'email',
+      },
+      {
+        name: 'password',
+        label: 'Password',
+        type: 'password',
+      },
+    ],
+  };
+
+  return (
+    <FormProvider>
+      <DynamicForm id="simpleForm" config={formConfig} />
+    </FormProvider>
+  );
 };
 
-return (
-  <>
-    <DynamicForm id='1' config={formConfig} />
-  </>
-);
-
-```
-## 2. DynamicForm
-
-The `DynamicForm` component is the heart of the tac-form. It takes a configuration object and renders the form accordingly. make sure to wrap the component with `FormProvider`
-
-```typescript
-interface DynamicFormProps<T extends Record<string, unknown>> {
-	id: string
-	config: FormConfig<T>
-	defaultValues?: DefaultValues<T> | undefined
-	schema?: ZodType<any, any, any>
-	className?: string
-	darkMode?: boolean
-}
+export default App;
 ```
 
-Key responsibilities:
-- Initializing form state with React Hook Form
-- Rendering fields based on configuration
-- Handling form submission
-- Applying validation rules
+## Form Configuration
 
-## 3. State Management
-
-The `tac-form` uses `React Hook Form` for form state management. This provides several benefits:
-- Efficient rendering and re-rendering
-- Built-in validation
-- Easy integration with external validation libraries (e.g., Zod)
-
-Key aspects:
-- The `useForm` hook is used in the `useDynamicForm` custom hook
-- Field registration is handled automatically via the `Controller` component
-
-## 4. Form Configuration
-
-Wrap the Top level Component with `FormProvider`.
-Forms are configured using a `FormConfig` object:
-
+The `FormConfig` object is the core of tac-form. It defines the structure and behavior of your form:
 
 ```typescript
 interface FormConfig<T extends Record<string, unknown>> {
@@ -109,134 +99,287 @@ interface FormConfig<T extends Record<string, unknown>> {
 }
 ```
 
+## Field Types
 
-## 5. Inputs 
+tac-form supports various field types out of the box:
 
-The system supports a wide range of field types:
+| Field Type | Component     | Description               |
+|------------|---------------|---------------------------|
+| text       | TextInput     | Standard text input       |
+| textarea   | TextareaInput | Multi-line text input     |
+| number     | NumberInput   | Numeric input             |
+| email      | EmailInput    | Email input               |
+| select     | SelectInput   | Dropdown selection        |
+| radio      | RadioInput    | Radio button group        |
+| checkbox   | CheckboxInput | Checkbox or checkbox group|
+| phone      | PhoneInput    | Phone number input        |
+| date       | DateInput     | Date picker               |
+| readonly   | ReadonlyInput | Display-only field        |
 
-| Field Type | Component | Description |
-|------------|-----------|-------------|
-| text       | TextInput | Standard text input |
-| textarea   | TextareaInput | Multi-line text input |
-| number     | NumberInput | Numeric input |
-| email      | EmailInput | Email input with validation |
-| select     | SelectInput | Dropdown selection |
-| radio      | RadioInput | Radio button group |
-| checkbox   | CheckboxInput | Checkbox group or single checkbox |
-| phone      | PhoneInput | Phone number input |
-| date       | DateInput | Date picker |
-| readonly   | ReadonlyInput | Display-only field |
+Example of different field types:
 
-Field rendering is handled dynamically based on the `type` property in the field configuration.
-- External library component or Custom component are also supported having `name`, `value` and `onChange` as required props.
-
-
-
-## 6. Conditional Rendering
-
-The system supports conditional rendering of fields based on the values of other fields. This is achieved through the `dependency` property in the field configuration:
-
-```typescript
-dependency?: {
-    on: (keyof T)[]
-    condition: (value: Partial<T>) => boolean
-}
+```tsx
+const formConfig = {
+  form: {
+    id: 'multiFieldForm',
+    submitText: 'Submit',
+    onSubmit: (data) => console.log(data),
+  },
+  fields: [
+    {
+      name: 'fullName',
+      label: 'Full Name',
+      type: 'text',
+    },
+    {
+      name: 'bio',
+      label: 'Biography',
+      type: 'textarea',
+    },
+    {
+      name: 'age',
+      label: 'Age',
+      type: 'number',
+    },
+    {
+      name: 'gender',
+      label: 'Gender',
+      type: 'select',
+      options: [
+        { label: 'Male', value: 'male' },
+        { label: 'Female', value: 'female' },
+        { label: 'Other', value: 'other' },
+      ],
+    },
+    {
+      name: 'newsletter',
+      label: 'Subscribe to newsletter',
+      type: 'checkbox',
+    },
+  ],
+};
 ```
 
-Example usage:
+## Conditional Rendering
 
-```typescript
-{
-  name: 'additionalInfo',
-  label: 'Additional Information',
-  type: 'textarea',
-  dependency: {
-    on: ['needsMoreInfo'],  // other field/fields name
-    condition: (values) => values.needsMoreInfo === true
-  }
-}
+You can conditionally render fields based on the values of other fields:
+
+```tsx
+const formConfig = {
+  // ... other config
+  fields: [
+    {
+      name: 'hasChildren',
+      label: 'Do you have children?',
+      type: 'radio',
+      options: [
+        { label: 'Yes', value: 'yes' },
+        { label: 'No', value: 'no' },
+      ],
+    },
+    {
+      name: 'numberOfChildren',
+      label: 'Number of children',
+      type: 'number',
+      dependency: {
+        on: ['hasChildren'],
+        condition: (values) => values.hasChildren === 'yes',
+      },
+    },
+  ],
+};
 ```
 
-## 7. Schema Validation
+## Validation
 
-The system integrates with Zod for schema validation. Zod schemas can be passed to the `DynamicForm` component:
+tac-form integrates with Zod for schema validation:
 
-```typescript
+```tsx
+import { z } from 'zod';
+
 const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
-<DynamicForm
-  id="myForm"
-  config={formConfig}
-  schema={schema}
-/>
-```
+const FormWithValidation = () => {
+  const formConfig = {
+    // ... form config
+  };
 
-The `zodResolver` from `@hookform/resolvers/zod` is used to integrate Zod with React Hook Form.
-
-## 8. External Component Integration
-
-The system allows for integration with external UI component libraries. This is achieved through the `component` property in the field configuration:
-
-```typescript
-{
-  name: 'customInput',
-  label: 'Custom Input',
-  type: 'text',
-  component: MUITextField,
-  // Additional props specific to MUITextField can be passed here
-}
-```
-```typescript
-component?: ComponentType<any> | keyof JSX.IntrinsicElements;
-```
-
-The `Controller` component from React Hook Form is used to wrap external components and integrate them with the form state.
-
-## 9. Context and Form Management
-
-The `FormContext` provides a way to manage multiple forms within an application:
-
-```typescript
-export interface FormContextProps<T extends FieldValues> {
-  forms: Record<string, UseFormReturn<T>>;
-  addForm: (id: string, methods: UseFormReturn<T>) => void;
-  getFormValue: (id: string, name: keyof T) => any;
-}
-```
-
-This allows for:
-- Centralized management of multiple forms
-- Cross-form interactions
-- Accessing form values from outside the form components
-
-## 10. Theming and Styling
-
-The system supports theming through:
-- A `darkMode` prop on the `DynamicForm` component
-- Tailwind CSS classes for styling
-- Custom class names and styles can be applied at the field level
-
-```typescript
-customClassName?: {
-  container?: string;
-  input?: string;
-  label?: string;
-  error?: string;
-};
-
-styles?: {
-  container?: React.CSSProperties;
-  input?: React.CSSProperties;
-  label?: React.CSSProperties;
-  error?: React.CSSProperties;
+  return <DynamicForm id="validatedForm" config={formConfig} schema={schema} />;
 };
 ```
 
-## 11. Future Enhancements
+## External Component Integration
 
-- Support for Otp Input
-- Stepper form support
-- Enhanced accessibility features
+You can integrate external UI components:
+- External library component or Custom component are also supported having `name`, `value` and `onChange` as required props.
+```tsx
+import { TextField } from '@mui/material';
+
+const formConfig = {
+  // ... other config
+  fields: [
+    {
+      name: 'customInput',
+      label: 'Custom Input',
+      type: 'text',
+      component: TextField,
+    },
+  ],
+};
+```
+
+## Context and Form Management
+
+The `FormProvider` allows you to manage multiple forms:
+
+```tsx
+import { FormProvider, useFormContext } from 'tac-form';
+
+const ChildComponent = () => {
+  const { getFormValue } = useFormContext();
+  const emailValue = getFormValue('myForm', 'email');
+
+  return <div>Email: {emailValue}</div>;
+};
+
+const ParentComponent = () => {
+  return (
+    <FormProvider>
+      <DynamicForm id="myForm" config={formConfig} />
+      <ChildComponent />
+    </FormProvider>
+  );
+};
+```
+
+## Theming and Styling
+
+tac-form supports dark mode and custom styling:
+
+```tsx
+const formConfig = {
+  // ... other config
+  fields: [
+    {
+      name: 'styledInput',
+      label: 'Styled Input',
+      type: 'text',
+      customClassName: {
+        container: 'my-custom-container',
+        input: 'my-custom-input',
+        label: 'my-custom-label',
+      },
+      styles: {
+        input: { borderColor: 'blue' },
+      },
+    },
+  ],
+};
+
+const ThemedForm = () => {
+  return <DynamicForm id="themedForm" config={formConfig} darkMode={true} />;
+};
+```
+
+## Advanced Examples
+
+### Multi-step Form
+
+```tsx
+import React, { useState } from 'react';
+import { DynamicForm, FormProvider } from 'tac-form';
+
+const MultiStepForm = () => {
+  const [step, setStep] = useState(1);
+
+  const stepOneConfig = {
+    form: {
+      id: 'stepOne',
+      submitText: 'Next',
+      onSubmit: (data) => {
+        console.log('Step One Data:', data);
+        setStep(2);
+      },
+    },
+    fields: [
+      { name: 'firstName', label: 'First Name', type: 'text' },
+      { name: 'lastName', label: 'Last Name', type: 'text' },
+    ],
+  };
+
+  const stepTwoConfig = {
+    form: {
+      id: 'stepTwo',
+      submitText: 'Submit',
+      onSubmit: (data) => {
+        console.log('Step Two Data:', data);
+        // Handle final submission
+      },
+    },
+    fields: [
+      { name: 'email', label: 'Email', type: 'email' },
+      { name: 'phone', label: 'Phone', type: 'phone' },
+    ],
+  };
+
+  return (
+    <FormProvider>
+      {step === 1 && <DynamicForm id="stepOne" config={stepOneConfig} />}
+      {step === 2 && <DynamicForm id="stepTwo" config={stepTwoConfig} />}
+    </FormProvider>
+  );
+};
+
+export default MultiStepForm;
+```
+
+### Form with Complex Validation
+
+```tsx
+import { z } from 'zod';
+import { DynamicForm } from 'tac-form';
+
+const complexSchema = z.object({
+  username: z.string().min(3, 'Username must be at least 3 characters'),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ['confirmPassword'],
+});
+
+const ComplexForm = () => {
+  const formConfig = {
+    form: {
+      id: 'complexForm',
+      submitText: 'Register',
+      onSubmit: (data) => console.log('Form submitted:', data),
+    },
+    fields: [
+      { name: 'username', label: 'Username', type: 'text' },
+      { name: 'email', label: 'Email', type: 'email' },
+      { name: 'password', label: 'Password', type: 'password' },
+      { name: 'confirmPassword', label: 'Confirm Password', type: 'password' },
+    ],
+  };
+
+  return <DynamicForm id="complexForm" config={formConfig} schema={complexSchema} />;
+};
+
+export default ComplexForm;
+```
+
+## Future Work
+- Otp Form
+- Native Multi Step Form
+- File Upload Form
+- Image Crop Form
+- Signature Form
+
+## License
+
+tac-form is released under the MIT License.
