@@ -16,6 +16,8 @@ program
   .option('-y, --yes', 'Skip prompts and use default options')
   .action(async (options) => {
     let installPath = 'src/components/forms';
+    let tailwindConfigPath = 'tailwind.config.ts'; // Default value
+    let globalsCssPath = 'globals.css'; // Default value
 
     if (!options.yes) {
       const answers = await inquirer.prompt([
@@ -34,17 +36,17 @@ program
           type: 'input',
           name: 'tailwindConfigPath',
           message: 'Where do you want to install tailwind.config.ts?',
-          default: 'tailwind.config.ts'
+          default: tailwindConfigPath
         },
         {
           type: 'input',
           name: 'globalsCssPath',
           message: 'Where do you want to install globals.css?',
-          default: 'globals.css'
+          default: globalsCssPath
         }
       ]);
-      const tailwindConfigPath = configAnswers.tailwindConfigPath;
-      const globalsCssPath = configAnswers.globalsCssPath;
+      tailwindConfigPath = configAnswers.tailwindConfigPath;
+      globalsCssPath = configAnswers.globalsCssPath;
     }
 
     const sourcePath = path.join(__dirname, 'src');
