@@ -21,7 +21,7 @@ const formConfig2: FormConfig<FormType> = {
 		},
 		{
 			name: 'username',
-			type: 'text'
+			type: 'text',
 		}
 	]
 }
@@ -139,7 +139,6 @@ const testFormSchema = z.object({
 
 const Home = () => {
 	const { forms, getFormValue, addForm } = useFormContext<testFormConfig>()
-
 	const handleClick = (id: string) => {
 		const value = getFormValue(id, 'textField')
 		console.log({ value })
@@ -149,6 +148,11 @@ const Home = () => {
 		<button onClick={() => handleClick('2')}>	click me	</button>
 		<div className='w-full dark h-[100vh] flex justify-center items-center' >
 			<div className='w-[80%] h-auto bg-white dark:bg-slate-600 rounded-lg px-10 py-4'>
+				<DynamicForm
+					id='2'
+				config={testFormConfig}
+				schema={testFormSchema}
+				/>
 				<DynamicForm
 					id='2'
 				config={testFormConfig}
