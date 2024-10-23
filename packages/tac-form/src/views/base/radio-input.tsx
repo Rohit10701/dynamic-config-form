@@ -1,17 +1,20 @@
-import { ErrorMessage, FieldValuesFromFieldErrors } from '@hookform/error-message';
-import React, { InputHTMLAttributes } from 'react';
-import { FieldErrors, FieldValues, FieldName } from 'react-hook-form';
+import { InputHTMLAttributes } from 'react';
+import { FieldErrors } from 'react-hook-form';
 import ErrorField from './error-field';
 import { Option } from '../../types/form';
 import { cn } from '../../utils/helpers';
+import { formElementVariants } from '../../utils/variants';
 
-interface RadioInputProps<T extends Record<string, unknown>> extends InputHTMLAttributes<HTMLInputElement> {
+interface RadioInputProps<T extends Record<string, unknown>> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   name: Extract<keyof T, string>;
   errors?: FieldErrors<T>;
   options: Option[];
   value?: string;
   required?: boolean;
+	variant?: 'default' | 'outline' | 'destructive' | 'ghost' | 'secondary';
+	size?: 'sm' | 'default' | 'lg' | 'none';
+	rounded?: boolean;
 }
 
 const RadioInput = <T extends Record<string, unknown>>({
@@ -22,6 +25,9 @@ const RadioInput = <T extends Record<string, unknown>>({
   value,
   required,
   className,
+  variant = 'default',
+  size = 'none',
+  rounded = false,
   ...props
 }: RadioInputProps<T>) => {
   return (
@@ -42,7 +48,7 @@ const RadioInput = <T extends Record<string, unknown>>({
               checked={value === option.value}
               required={required}
               aria-checked={value === option.value}
-              className="h-4 w-4  text-blue-600 border-gray-300 focus:ring-blue-500 dark:accent-gray-700 dark:border-gray-600"
+              className={cn(formElementVariants({ variant: errors?.[name]?.message as string ? 'destructive' : variant, size, rounded }), className)}
               {...props}
             />
             <label htmlFor={option.value} className="ml-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">

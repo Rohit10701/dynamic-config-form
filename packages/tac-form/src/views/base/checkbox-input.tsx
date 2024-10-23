@@ -1,11 +1,11 @@
 import React, { InputHTMLAttributes } from 'react';
-import { FieldErrors, FieldValues, FieldName } from 'react-hook-form';
-import { ErrorMessage, FieldValuesFromFieldErrors } from '@hookform/error-message';
+import { FieldErrors } from 'react-hook-form';
 import ErrorField from './error-field';
 import { Option } from '../../types/form';
 import { cn } from '../../utils/helpers';
+import { formElementVariants } from '../../utils/variants';
 
-interface CheckboxInputProps<T extends Record<string, unknown>> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
+interface CheckboxInputProps<T extends Record<string, unknown>> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value' | 'size'> {
   label?: string;
   name: Extract<keyof T, string>;
   errors?: FieldErrors<T>;
@@ -14,6 +14,9 @@ interface CheckboxInputProps<T extends Record<string, unknown>> extends Omit<Inp
   styles?: React.CSSProperties;
   required?: boolean;
   onChange: (value: string[]) => void;
+  variant?: 'default' | 'outline' | 'destructive' | 'ghost' | 'secondary';
+	size?: 'sm' | 'default' | 'lg' | 'none';
+  rounded?: boolean;
 }
 
 const CheckboxInput = <T extends Record<string, unknown>>({
@@ -26,6 +29,9 @@ const CheckboxInput = <T extends Record<string, unknown>>({
   className,
   styles,
   onChange,
+  variant = 'default',
+  size = 'none',
+  rounded = false,
   ...props
 }: CheckboxInputProps<T>) => {
   const selectedValues = Array.isArray(value) ? value : [];
@@ -56,7 +62,7 @@ const CheckboxInput = <T extends Record<string, unknown>>({
               checked={selectedValues.includes(option.value)}
               onChange={handleCheckboxChange}
               aria-checked={selectedValues.includes(option.value)}
-              className={cn("w-4 h-4 border border-gray-300 rounded accent-gray-50 focus:ring-3 focus:ring-blue-300 dark:accent-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800", className)}
+              className={cn(formElementVariants({ variant: errors?.[name]?.message as string ? 'destructive' : variant, size, rounded }), className)}
               {...props}
             />
             <label className={cn("ml-2 text-sm flex-1 whitespace-nowrap font-medium text-gray-900 dark:text-white")} htmlFor={option.value}>

@@ -1,20 +1,26 @@
-import * as React from 'react';
 import ErrorField from './error-field'
-import { FieldError, FieldErrors } from 'react-hook-form'
+import { FieldErrors } from 'react-hook-form'
 import { InputHTMLAttributes } from 'react'
 import { cn } from '../../utils/helpers'
+import { formElementVariants } from '../../utils/variants';
 
 interface GenericInputProps<T extends Record<string, unknown>>
-	extends InputHTMLAttributes<HTMLInputElement> {
+	extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
 	name: Extract<keyof T, string>
 	label?: string
 	errors?: FieldErrors<T>
+	variant?: 'default' | 'outline' | 'destructive' | 'ghost' | 'secondary';
+	size?: 'sm' | 'default' | 'lg' | 'none';
+	rounded?: boolean;
 }
 const GenericInput = <T extends Record<string, unknown>>({
 	name,
 	label,
 	errors,
 	className,
+	variant = 'default',
+	size = 'default',
+	rounded = false,
 	...props
 }: GenericInputProps<T>) => {
 	return (
@@ -30,10 +36,8 @@ const GenericInput = <T extends Record<string, unknown>>({
 				name={name}
 				aria-labelledby={name}
 				aria-roledescription={`input field for ${name}`}
-				className={cn(
-					'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-					className
-				)}
+				className={cn(formElementVariants({ variant: errors?.[name]?.message as string ? 'destructive' : variant, size, rounded }), className)}
+
 				{...props}
 			/>
 			{errors && (

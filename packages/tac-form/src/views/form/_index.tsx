@@ -1,16 +1,12 @@
 "use client"
-import React, { ReactNode, useEffect, useInsertionEffect, useLayoutEffect } from 'react'
+import  { useEffect } from 'react'
 import {
 	Controller,
 	DefaultValues,
-	FieldErrors,
-	FieldName,
 	Path,
 	SubmitHandler,
-	useForm,
 	WatchObserver
 } from 'react-hook-form'
-import { FieldValuesFromFieldErrors } from '@hookform/error-message'
 import { getFieldComponent } from '../base/_index'
 import { ZodType } from 'zod'
 import { FieldInput, FormConfig } from '../../types/form'
@@ -23,11 +19,10 @@ export interface DynamicFormProps<T extends Record<string, unknown>> {
 	defaultValues?: DefaultValues<T> | undefined
 	schema?: ZodType<any, any, any>
 	className?: string
-	darkMode?: boolean
 }
 
 const DynamicForm = <T extends Record<string, unknown>>(props: DynamicFormProps<T>) => {
-	const { id, config, schema, className, darkMode = false, defaultValues } = props
+	const { id, config, schema, className, defaultValues } = props
 	if(config.fields.length == 0){
 		throw new Error("Fields are required in the config!")
 	}
@@ -62,8 +57,8 @@ const DynamicForm = <T extends Record<string, unknown>>(props: DynamicFormProps<
 			<div
 				data-testid={id || 'test-form'}
 				className={cn(
-					'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 bg-white dark:bg-slate-600',
-					`${darkMode ? ' dark ' : ''}`,
+					'w-full flex-1 h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 bg-white dark:bg-slate-600',
+					
 					className
 				)}>
 				{config?.fields?.map((fieldData: FieldInput<T>) => {

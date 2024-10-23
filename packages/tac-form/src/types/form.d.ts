@@ -39,14 +39,17 @@ export interface FieldInput<T extends FieldValues> extends Omit<InputHTMLAttribu
 	required?: boolean
 	options?: Option[]
 	component?: ComponentType<any> | keyof JSX.IntrinsicElements;
-	styles?: React.CSSProperties
+	styles?: React.CSSProperties;
+	variant?: 'default' | 'outline' | 'destructive' | 'ghost' | 'secondary';
+	size?: 'sm' | 'default' | 'lg' | 'none';
+	rounded?: boolean;
+	[key: string]: any;
 }
 
 export type GenericFieldType = 'text' | 'email' | 'password' | 'number' | 'range'
 export type FieldType =
 	| 'checkbox'
 	| 'radio'
-	| 'file'
 	| 'date'
 	| 'textarea'
 	| 'phone'

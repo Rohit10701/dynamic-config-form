@@ -1,4 +1,3 @@
-import React from 'react'
 import { FieldErrors } from 'react-hook-form'
 
 interface ErrorFieldProps<T extends Record<string, unknown> = any> {
@@ -10,7 +9,7 @@ const ErrorField = <T extends Record<string, unknown>>({ errors, name }: ErrorFi
   return (
     <div>
       {errors[name] && (
-        <p className="mt-2 text-sm text-red-600 dark:text-red-400" id={name}>
+        <p className="mt-2 text-sm text-red-600 dark:text-destructive" id={name}>
           {(errors[name]?.message as string) || 'Error'}
         </p>
       )}

@@ -1,13 +1,16 @@
-import { ErrorMessage, FieldValuesFromFieldErrors } from '@hookform/error-message';
-import React, { TextareaHTMLAttributes } from 'react';
-import { FieldErrors, FieldName } from 'react-hook-form';
+import { TextareaHTMLAttributes } from 'react';
+import { FieldErrors } from 'react-hook-form';
 import ErrorField from './error-field';
 import { cn } from '../../utils/helpers';
+import { formElementVariants } from '../../utils/variants';
 
-interface TextareaInputProps<T extends Record<string, unknown>> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaInputProps<T extends Record<string, unknown>> extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
   label?: string;
   name: Extract<keyof T, string>;
   errors?: FieldErrors<T>;
+  variant?: 'default' | 'outline' | 'destructive' | 'ghost' | 'secondary';
+  size?: 'sm' | 'default' | 'lg' | 'none';
+  rounded?: boolean;
 }
 
 const TextareaInput = <T extends Record<string, unknown>>({
@@ -15,6 +18,9 @@ const TextareaInput = <T extends Record<string, unknown>>({
   errors,
   name,
   className,
+  variant = 'default',
+  size = 'default',
+  rounded = false,
   ...props
 }: TextareaInputProps<T>) => {
   return (
@@ -27,7 +33,7 @@ const TextareaInput = <T extends Record<string, unknown>>({
       <textarea
         id={name}
         name={name}
-        className={cn("bg-gray-5 w-full border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white", className)}
+        className={cn(formElementVariants({ variant: errors?.[name]?.message as string ? 'destructive' : variant, size, rounded }), className)}
         {...props}
       ></textarea>
       {errors && <ErrorField errors={errors} name={name}/>}

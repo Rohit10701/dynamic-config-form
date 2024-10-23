@@ -6,7 +6,6 @@ import RadioInput from './radio-input'
 import SelectInput from './select-input'
 import TextareaInput from './textarea-input'
 import ColorInput from './color-input'
-import FileInput from './file-input'
 import ReadOnlyInput from './readonly-input'
 
 export function getFieldComponent(type: string): React.FC<any> {
@@ -25,8 +24,6 @@ export function getFieldComponent(type: string): React.FC<any> {
 			return DateInput
 		case 'color':
 			return ColorInput
-		case 'file':
-			return FileInput
 		case 'readonly':
 			return ReadOnlyInput
 		default:
@@ -43,5 +40,4 @@ export {
 	TextareaInput,
 	ReadOnlyInput,
 	ColorInput,
-	FileInput
 }

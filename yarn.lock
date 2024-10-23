@@ -10003,7 +10003,7 @@ tabbable@^6.0.0:
   integrity sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==
 
 "tac-form@file:/Users/rohit/Documents/libs/form/config-form/packages/tac-form":
-  version "1.0.9"
+  version "1.0.10"
   resolved "file:packages/tac-form"
   dependencies:
     "@hookform/error-message" "^2.0.1"

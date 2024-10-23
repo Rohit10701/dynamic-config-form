@@ -9,7 +9,6 @@ export { default as RadioInput } from './views/base/radio-input'
 export { default as SelectInput } from './views/base/select-input'
 export { default as TextareaInput } from './views/base/textarea-input'
 export { default as ColorInput } from './views/base/color-input'
-export { default as FileInput } from './views/base/file-input'
 export { default as ReadOnlyInput } from './views/base/readonly-input'
 
 /* hooks */

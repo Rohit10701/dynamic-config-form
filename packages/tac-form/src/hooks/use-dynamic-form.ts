@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { DefaultValues, useForm } from 'react-hook-form'
 import { useFormContext } from '../context/form-context'
-import { FormConfig, Option } from '../types/form'
+import { FormConfig } from '../types/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ZodType } from 'zod'
 

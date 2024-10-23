@@ -51,8 +51,6 @@ const testFormConfig: FormConfig<testFormConfig> = {
 		label: 'Text Field',
 		type: 'text',
 		placeholder: 'Enter text',
-		value: 'Sample text',
-		required: true
 	},
 	{
 		name: 'readOnly',
@@ -60,7 +58,6 @@ const testFormConfig: FormConfig<testFormConfig> = {
 		type: 'readonly',
 		placeholder: 'Enter text',
 		value: 'Sample text',
-		required: true
 	},
 	{
 		name: 'textareaField',
@@ -68,7 +65,6 @@ const testFormConfig: FormConfig<testFormConfig> = {
 		type: 'textarea',
 		placeholder: 'Enter detailed text',
 		value: 'Sample textarea content',
-		required: false
 	},
 	{
 		name: 'numberField',
@@ -76,7 +72,6 @@ const testFormConfig: FormConfig<testFormConfig> = {
 		type: 'number',
 		placeholder: 'Enter a number',
 		value: 12345,
-		required: true
 	},
 	{
 		name: 'selectField',
@@ -88,8 +83,7 @@ const testFormConfig: FormConfig<testFormConfig> = {
 			{ label: 'Option 3', value: 'option3' }
 		],
 		placeholder: 'slec',
-		// value: 'option2',
-		required: true
+		value: 'option2',
 	},
 	{
 		name: 'radioField',
@@ -101,7 +95,6 @@ const testFormConfig: FormConfig<testFormConfig> = {
 			{ label: 'Radio 3', value: 'radio3' }
 		],
 		value: 'radio1',
-		required: true
 	},
 	{
 		name: 'checkboxField',
@@ -113,7 +106,6 @@ const testFormConfig: FormConfig<testFormConfig> = {
 			{ label: 'Checkbox 3', value: 'checkbox3' }
 		],
 		value: ['checkbox3', 'checkbox1'],
-		required: false
 	},
 	{
 		name: 'phoneField',
@@ -121,7 +113,6 @@ const testFormConfig: FormConfig<testFormConfig> = {
 		type: 'phone',
 		placeholder: 'Enter phone number',
 		value: '918340453292',
-		required: true
 	},
 	{
 		name: 'dateField',
@@ -129,13 +120,12 @@ const testFormConfig: FormConfig<testFormConfig> = {
 		type: 'date',
 		placeholder: 'Select date',
 		value: '2023-08-27',
-		required: true
 	},
 	]
 }
 
 const testFormSchema = z.object({
-	textField: z.string(),
+	textField: z.string().min(8, { message: 'Minimum 8 characters required' }),
 	readOnly: z.string(),
 	textareaField: z.string(),
 	numberField: z.number(),
@@ -143,23 +133,29 @@ const testFormSchema = z.object({
 	radioField: z.string(),
 	checkboxField: z.array(z.string()),
 	phoneField: z.string(),
-	dateField: z.string(),
+	dateField: z.string().or(z.array(z.date())),
 })
 
 
 const Home = () => {
-	const { forms, getFormValue, addForm } = useFormContext<FormType>()
+	const { forms, getFormValue, addForm } = useFormContext<testFormConfig>()
 
 	const handleClick = (id: string) => {
-		const value = getFormValue(id, 'email')
+		const value = getFormValue(id, 'textField')
 		console.log({ value })
 	}
 	return (
 		<>
-			<DynamicForm
-				id='2'
+		<button onClick={() => handleClick('2')}>	click me	</button>
+		<div className='w-full dark h-[100vh] flex justify-center items-center' >
+			<div className='w-[80%] h-auto bg-white dark:bg-slate-600 rounded-lg px-10 py-4'>
+				<DynamicForm
+					id='2'
 				config={testFormConfig}
-			/>
+				schema={testFormSchema}
+				/>
+			</div>
+		</div>
 		</>
 	)
 }

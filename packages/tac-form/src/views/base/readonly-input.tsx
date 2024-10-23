@@ -1,17 +1,19 @@
-import * as React from 'react';
-import { ErrorMessage } from "@hookform/error-message";
 import ErrorField from './error-field';
 import { InputHTMLAttributes } from 'react';
 import { FieldErrors } from 'react-hook-form';
 import { cn } from "../../utils/helpers";
+import { formElementVariants } from '../../utils/variants';
 
 
-interface ReadOnlyInputProps <T extends Record<string, unknown>>  extends InputHTMLAttributes<HTMLInputElement>{
+interface ReadOnlyInputProps <T extends Record<string, unknown>>  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'  >{
   name : Extract<keyof T, string>,
   label?: string,
   errors?: FieldErrors<T>,
   type?: string,
   className?: string
+  variant?: 'default' | 'outline' | 'destructive' | 'ghost' | 'secondary';
+	size?: 'sm' | 'default' | 'lg' | 'none';
+	rounded?: boolean;
 }
 const ReadOnlyInput = <T extends Record<string, unknown>>({
   name,
@@ -19,6 +21,9 @@ const ReadOnlyInput = <T extends Record<string, unknown>>({
   errors,
   type,
   className,
+  variant = 'default',
+  size = 'default',
+  rounded = false,
   ...props
 }: ReadOnlyInputProps<T>) => {
   return (
@@ -33,7 +38,7 @@ const ReadOnlyInput = <T extends Record<string, unknown>>({
         type='text'
         disabled
         name={name}
-        className={cn("bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white", className)}
+        className={cn(formElementVariants({ variant: errors?.[name]?.message as string ? 'destructive' : variant, size, rounded }), className)}
         {...props}
       />
       {errors && <ErrorField errors={errors} name={name}/>}
