@@ -5,7 +5,7 @@ const inquirer = require('inquirer');
 const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
-
+const { execSync } = require('child_process'); 
 program
   .version('1.0.0')
   .description('CLI for installing tac-form components');
@@ -53,6 +53,14 @@ program
     const destinationPath = path.join(process.cwd(), installPath);
 
     try {
+      console.log(chalk.blue('Installing additional dependencies...'))
+      execSync(
+        `npm install @hookform/error-message class-variance-authority @hookform/resolvers clsx patch-package react-color react-datepicker react-hook-form react-phone-input-2 tailwind-merge zod`,
+        { stdio: 'inherit' }
+      );
+      console.log(chalk.green('✔ Additional packages installed successfully.'));
+
+
       await fs.copy(sourcePath, destinationPath);
       // Copy tailwind.config.ts and globals.css
       await fs.copy(path.join(__dirname, 'tailwind.config.ts'), tailwindConfigPath);
