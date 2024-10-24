@@ -12,16 +12,13 @@ const useDynamicForm = <T extends Record<string, unknown>>(
 	schema?: ZodType<any, any, any>,
 	defaultValues?: DefaultValues<T> | undefined
 ) => {
-	const {forms, addForm } = useFormContext<T>()
+	const { addForm } = useFormContext<T>()
 	const methods = useForm<T>({
 		shouldUnregister: true, 
 		resolver: schema ? zodResolver(schema) : undefined,
 		defaultValues
 	  })
 	  
-	if (id in forms) {
-		throw new Error("Found multiple forms with the same id!");
-	}
 	useEffect(() => {
 		addForm(id, methods)
 	}, [id, methods])
