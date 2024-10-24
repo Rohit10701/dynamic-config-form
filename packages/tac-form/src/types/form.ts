@@ -1,6 +1,5 @@
-import { FieldValuesFromFieldErrors } from '@hookform/error-message'
 import React, { ComponentType, InputHTMLAttributes, ReactNode } from 'react'
-import { FieldErrors, FieldName, FieldValues, Path, PathValue } from 'react-hook-form'
+import { FieldErrors, FieldValues } from 'react-hook-form'
 import { ZodType } from 'zod'
 
 export interface FormConfig<T extends Record<string, unknown>> {
@@ -24,7 +23,7 @@ export type Option = {
 	value: string
 }
 
-export interface FieldInput<T extends FieldValues> extends Omit<InputHTMLAttributes<HTMLInputElement>, "name" | "value">  {
+export interface FieldInput<T extends FieldValues> extends Omit<InputHTMLAttributes<HTMLInputElement>, "name" | "value" | "size">  {
 	name: keyof T 
 	errors?: FieldErrors<T>
 	value?: string | number | readonly string[] | undefined | Option[]

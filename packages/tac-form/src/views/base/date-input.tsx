@@ -1,10 +1,10 @@
-import React from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ErrorField from './error-field'
 import { FieldErrors } from 'react-hook-form'
 import { cn } from '../../utils/helpers'
 import { formElementVariants } from '../../utils/variants'
+import React from 'react'
 
 interface DateInputProps<T extends Record<string, unknown>> {
 	value?: Date | [Date, Date]
