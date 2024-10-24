@@ -239,21 +239,16 @@ const formConfig = {
 The `FormProvider` allows you to manage multiple forms:
 
 ```tsx
-import { FormProvider, useFormContext } from 'tac-form';
+import { useFormContext } from 'tac-form';
 
-const ChildComponent = () => {
-  const { getFormValue } = useFormContext();
-  const emailValue = getFormValue('myForm', 'email');
-
-  return <div>Email: {emailValue}</div>;
-};
 
 const ParentComponent = () => {
+  const handleClick = (id: string) => {
+  const value = getFormValue(id, 'textField')
+    console.log({ value })
+  }
   return (
-    <FormProvider>
       <DynamicForm id="myForm" config={formConfig} />
-      <ChildComponent />
-    </FormProvider>
   );
 };
 ```

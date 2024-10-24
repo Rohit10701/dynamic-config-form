@@ -1,6 +1,6 @@
 {
 	"name": "tac-form",
-	"version": "1.0.25",
+	"version": "1.0.26",
 	"license": "MIT",
 	"description": "The JSON Schema-based library for creating forms.",
 	"files": [
