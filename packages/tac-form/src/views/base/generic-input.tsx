@@ -3,6 +3,7 @@ import { FieldErrors } from 'react-hook-form'
 import { InputHTMLAttributes } from 'react'
 import { cn } from '../../utils/helpers'
 import { formElementVariants } from '../../utils/variants';
+import * as React from 'react';
 
 interface GenericInputProps<T extends Record<string, unknown>>
 	extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {

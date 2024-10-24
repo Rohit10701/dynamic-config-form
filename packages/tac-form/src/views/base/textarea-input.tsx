@@ -3,6 +3,7 @@ import { FieldErrors } from 'react-hook-form';
 import ErrorField from './error-field';
 import { cn } from '../../utils/helpers';
 import { formElementVariants } from '../../utils/variants';
+import * as React from 'react';
 
 interface TextareaInputProps<T extends Record<string, unknown>> extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
   label?: string;

@@ -3,6 +3,7 @@ import { InputHTMLAttributes } from 'react';
 import { FieldErrors } from 'react-hook-form';
 import { cn } from "../../utils/helpers";
 import { formElementVariants } from '../../utils/variants';
+import * as React from 'react';
 
 
 interface ReadOnlyInputProps <T extends Record<string, unknown>>  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'  >{

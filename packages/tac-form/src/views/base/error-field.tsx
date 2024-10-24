@@ -1,4 +1,5 @@
 import { FieldErrors } from 'react-hook-form'
+import * as React from 'react';
 
 interface ErrorFieldProps<T extends Record<string, unknown> = any> {
   errors: FieldErrors<T>

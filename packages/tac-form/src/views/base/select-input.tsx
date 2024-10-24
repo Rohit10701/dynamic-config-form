@@ -3,6 +3,7 @@ import { FieldErrors } from 'react-hook-form';
 import ErrorField from './error-field';
 import { cn } from '../../utils/helpers';
 import { formElementVariants } from '../../utils/variants';
+import * as React from 'react';
 
 interface SelectInputProps<T extends Record<string, unknown>> extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
   placeholder: string;

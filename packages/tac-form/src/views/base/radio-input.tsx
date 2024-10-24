@@ -4,6 +4,7 @@ import ErrorField from './error-field';
 import { Option } from '../../types/form';
 import { cn } from '../../utils/helpers';
 import { formElementVariants } from '../../utils/variants';
+import * as React from 'react';
 
 interface RadioInputProps<T extends Record<string, unknown>> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
